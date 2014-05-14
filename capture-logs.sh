@@ -21,6 +21,9 @@ scp -q $FS_SSH_USER@$FILESERVER:automated-build.log.gz .
 
 scp -q automated-build.log.gz $FS_SSH_USER@$FILESERVER:/home/shared/builds/$GITHUB_OWNER/$GITHUB_BRANCH/debug/functional-test-$RELEASE_VERSION-$BUILD_NUMBER.log.gz
 
+scp -r /tmp/teacup-artifacts-$EXECUTOR_NUMBER $FILESERVER:/home/shared/builds/$GITHUB_OWNER/$GITHUB_BRANCH/debug/
+rm -rf /tmp/teacup-artifacts-$EXECUTOR_NUMBER
+
 set +x
 
 echo
@@ -39,6 +42,7 @@ cat <<EOF
 Options to view the log:
 http://$FILESERVER/builds/$GITHUB_OWNER/$GITHUB_BRANCH/debug/functional-test-$RELEASE_VERSION-$BUILD_NUMBER.log
 http://$FILESERVER/builds/$GITHUB_OWNER/$GITHUB_BRANCH/debug/functional-test-$RELEASE_VERSION-$BUILD_NUMBER.log.gz
+http://$FILESERVER/builds/$GITHUB_OWNER/$GITHUB_BRANCH/debug/teacup-artifacts-$EXECUTOR_NUMBER/
 scp $FILESERVER:/home/shared/builds/$GITHUB_OWNER/$GITHUB_BRANCH/debug/functional-test-$RELEASE_VERSION-$BUILD_NUMBER.log.gz .
 
 EOF
